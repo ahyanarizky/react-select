@@ -66,8 +66,8 @@ class App extends React.Component {
     console.log(`Selected: ${selectedOption.label}`);
   }
   render() {
-    const { selectedOption } = this.state;
-    const value = selectedOption && selectedOption.value;
+  	const { selectedOption } = this.state;
+  	const value = selectedOption && selectedOption.value;
 
     return (
       <Select
@@ -193,6 +193,34 @@ const getOptions = (input) => {
   name="form-field-name"
   value="one"
   loadOptions={getOptions}
+/>
+```
+
+### Async options with pagination
+
+If you want to load additional options asynchronously when the user reaches the bottom of the options menu, you can pass the `pagination` prop.
+
+This will change the signature of `loadOptions` to pass the page which needs to be loaded: `loadOptions(inputValue, page, [callback])`.
+
+An example using the `fetch` API and ES6 syntax, with an API that returns the same object as the previous example:
+
+```javascript
+import Select from 'react-select';
+
+const getOptions = (input, page) => {
+  return fetch(`/users/${input}.json?page=${page}`)
+    .then((response) => {
+      return response.json();
+    }).then((json) => {
+      return { options: json };
+    });
+}
+
+<Select.Async
+	name="form-field-name"
+	value="one"
+	loadOptions={getOptions}
+	pagination
 />
 ```
 
@@ -427,6 +455,7 @@ function onInputKeyDown(event) {
 | `cache` | object | undefined | Sets the cache object used for options. Set to `false` if you would like to disable caching.
 | `loadingPlaceholder` | string or node | 'Loading...' | label to prompt for loading search result |
 | `loadOptions` | function | undefined | function that returns a promise or calls a callback with the options: `function(input, [callback])` |
+| `pagination` |	bool | false	| Load more options when the menu is scrolled to the bottom. `loadOptions` is given a page: `function(input, page, [callback])`
 
 #### Creatable properties
 
@@ -439,6 +468,7 @@ function onInputKeyDown(event) {
 | `onNewOptionClick` | function | new option click handler, it calls when new option has been selected. `function(option) {}` |
 | `shouldKeyDownEventCreateNewOption` | function | Decides if a keyDown event (eg its `keyCode`) should result in the creation of a new option. ENTER, TAB and comma keys create new options by default. Expected signature: `({ keyCode: number }): boolean` |
 | `promptTextCreator` | function | Factory for overriding default option creator prompt label. By default it will read 'Create option "{label}"'. Expected signature: `(label: String): String` |
+
 
 ### Methods
 

@@ -1,7 +1,7 @@
 {
-  "name": "react-select",
+  "name": "react-select-jurnal",
   "version": "1.2.1",
-  "description": "A Select control built with and for ReactJS",
+  "description": "A Select control built with and for ReactJS with pagination feature",
   "main": "lib/index.js",
   "jsnext:main": "dist/react-select.es.js",
   "module": "dist/react-select.es.js",
@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JedWatson/react-select.git"
+    "url": "https://github.com/ahyanarizky/react-select.git"
   },
   "dependencies": {
     "classnames": "^2.2.4",
